@@ -1,0 +1,13 @@
+components 폴더
+: 재사용 가능한 작은 단위의 컴포넌트, 다양한 곳에서 사용.
+
+- 재사용이 가능한 Vue 컴포넌트를 저장한다. ex) 버튼, 카드, 모달 창 등
+- 독립적이며 다양한 페이지나 레이웃에서 사용할 수 있다.
+
+components/auth
+: 사용자 로그인과 관련된 컴포넌트 / <q-dialog>를 사용해 대화상자 기반 로그인으로 구현
+
+1. AuthDialog.vue : 기반이 되는 부모 컴포넌트
+2. FindPasswordForm : 비밀번호 찾기 화면
+3. SignInForm : 로그인 화면
+4. SignUpForm : 회원가입 화면
