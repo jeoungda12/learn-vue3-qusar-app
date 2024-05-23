@@ -1,0 +1,20 @@
+apps 디렉터리
+: 비즈니스와 관련된 컴포넌트
+
+1. PostItem.vue
+   : 커뮤니티 목록 안에 내용을 출력한다.
+
+- :to를 통해서 페이지를 이동하게 되면 <a> (앵커태그)를 사용한다.
+- 앵커태그는 구글 같은 사이트에서 검색을 했을 때 검색될 수 있는 이점이 있다.
+- 항목
+  id : 고유 번호
+  title : 제목
+  content : 내용
+  readCount : 조회수
+  commentCount : 댓글수
+  likeCount : 추천수
+  bookmarkCount : 북마크 횟수
+  category : 카테고리
+  createTime : 작성 시간
+  tags : 태그
+  uid : 작성자 이름
