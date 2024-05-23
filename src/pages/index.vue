@@ -1,19 +1,26 @@
 <template>
   <q-page padding>
-    <div class="text-h4">커뮤니티목록</div>
-    <section class="q-gutter-y-sm q-mt-lg">
-      <!--
+    <div class="row q-col-gutter-x-lg">
+      <PostLeftBar class="col-grow" />
+      <section class="col-7">
+        <PostHeader />
+        <!--
         :는 v-bind의 축약형이다
         PostList에 posts객체를 전달한다.
       -->
-      <post-list :items="posts" />
-    </section>
+        <post-list :items="posts" />
+      </section>
+      <PostRightBar class="col-3" />
+    </div>
   </q-page>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import PostList from 'src/components/apps/post/PostList.vue';
+import PostHeader from './componets/PostHeader.vue';
+import PostLeftBar from './componets/PostLeftBar.vue';
+import PostRightBar from './componets/PostRightBar.vue';
 const router = useRouter();
 
 //Araay.from API를 사용하여 테스트 데이터 생성

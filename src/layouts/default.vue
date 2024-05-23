@@ -11,7 +11,7 @@
             <q-avatar>
               <img src="/public/icons/favicon-128x128.png" />
             </q-avatar>
-            짐코딩 클럽
+            정근혁과 친구들
           </q-toolbar-title>
         </q-btn>
         <q-space />
