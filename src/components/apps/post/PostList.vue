@@ -1,6 +1,7 @@
 <template>
-  <q-list bordered separator />
-  <post-item v-for="item in items" :key="item.id" v-bind="item" />
+  <q-list bordered separator>
+    <post-item v-for="item in items" :key="item.id" v-bind="item" />
+  </q-list>
 </template>
 
 <script setup>
