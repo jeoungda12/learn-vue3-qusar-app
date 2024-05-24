@@ -1,54 +1,41 @@
 <template>
-  <div class="text-subtitle1 text-weight-bold q-mb-lg">댓글 6</div>
+  <div>
+    <div class="text-subtitle1 text-weight-bold q-mb-lg">댓글 6</div>
 
-  <div v-if="isActive">
-    <q-input type="textarea" class="bg-white" outliined></q-input>
-    <div class="flex justify-end q-gutter-x-sm">
-      <q-btn label="취소" color="dark" unelevated @click="toggleActive"></q-btn>
-      <q-btn label="등록" color="primary" unelevated></q-btn>
+    <div v-if="isActive">
+      <q-input type="textarea" class="bg-white" outliined></q-input>
+      <div class="flex justify-end q-gutter-x-sm">
+        <q-btn
+          label="취소"
+          color="dark"
+          unelevated
+          @click="toggleActive"
+        ></q-btn>
+        <q-btn label="등록" color="primary" unelevated></q-btn>
+      </div>
     </div>
-  </div>
 
-  <q-card v-if="!isActive" @click="toggleActive" class="cursor-pointer">
-    <q-card-section class="flex items-center">
-      <q-avatar>
-        <img src="https://cdn.quasar.dev/img/avatar.png" />
-      </q-avatar>
-      <div class="text-grey-6 q-ml-md">댓글을 작성해보세요.</div>
-    </q-card-section>
-  </q-card>
-
-  <q-list class="q-mt-lg bg-white" bordered separator>
-    <q-item>
-      <q-item-section side top>
-        <q-avatar size="md">
+    <BaseCard v-if="!isActive" @click="toggleActive" class="cursor-pointer">
+      <q-card-section class="flex items-center">
+        <q-avatar>
           <img src="https://cdn.quasar.dev/img/avatar.png" />
         </q-avatar>
-      </q-item-section>
-      <q-item-section>
-        <div class="flex text-caption">
-          <span>짐코딩</span>
-          <span class="q-mx-xs">&middot;</span>
-          <span class="text-grey-6">3일 전</span>
-        </div>
-        <div class="q-mt-sm">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat culpa
-          similique, nobis quos, beatae explicabo molestiae sapiente quo
-          voluptatibus tenetur nostrum vero soluta! Odio pariatur debitis harum
-          doloribus sint neque.
-        </div>
-      </q-item-section>
-      <q-item-section side top>
-        <q-btn flat color="grey" icon="sym_o_delete" round dense />
-      </q-item-section>
-    </q-item>
-  </q-list>
+        <div class="text-grey-6 q-ml-md">댓글을 작성해보세요.</div>
+      </q-card-section>
+    </BaseCard>
+
+    <comment-list :items="comments" />
+  </div>
 </template>
 
 <script setup>
+import CommentList from 'src/components/apps/comments/CommentList.vue';
 import { ref } from 'vue';
+import BaseCard from 'src/components/apps/base/BaseCard.vue';
 const isActive = ref(false);
 const toggleActive = () => (isActive.value = !isActive.value);
+
+const comments = ref([{ id: 1 }, { id: 2 }, { id: 3 }]);
 </script>
 
 <style lang="scss" scoped></style>
