@@ -1,5 +1,5 @@
 <template>
-  <q-item class="q-pt-md bg-white" clickable :to="'/posts/${id}'">
+  <q-item class="q-pt-md bg-white" clickable :to="'/posts/' + id">
     <!-- avatar 속성은 avatar에 어올리게 여백이 지정된다 -->
     <q-item-section avatar top>
       <!-- 유저 썸네일 -->
