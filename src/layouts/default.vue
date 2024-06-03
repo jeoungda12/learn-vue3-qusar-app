@@ -48,6 +48,7 @@
           rounded : 둥글게
         -->
         <q-btn
+          v-if="!authStore.isAuthenticated"
           unelevated
           rounded
           color="primary"
@@ -55,16 +56,16 @@
           @click="openAuthDialog"
         />
         <!-- 마이 페이지 -->
-        <q-btn round flat>
+        <q-btn v-if="authStore.isAuthenticated" round flat>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/avatar.png" />
+            <img :src="authStore.user.photoURL" />
           </q-avatar>
           <q-menu>
             <q-list style="min-width: 100px">
               <q-item clickable v-close-popup to="/mypage/profile">
                 <q-item-section>프로필</q-item-section>
               </q-item>
-              <q-item clickable v-close-popup>
+              <q-item clickable v-close-popup @click="handleLogout">
                 <q-item-section>로그아웃</q-item-section>
               </q-item>
             </q-list>
@@ -87,8 +88,14 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+//로그인 상태 Pinia
+import { useAuthStore } from 'src/stores/auth';
+//로그아웃
+import { logout } from 'src/services/auth';
 
 import AuthDialog from 'src/components/auth/AuthDialog.vue';
+
+const authStore = useAuthStore();
 
 const route = useRoute();
 const pageConatinerStyles = computed(() => ({
@@ -102,7 +109,8 @@ const authDialog = ref(false);
 const openAuthDialog = () => {
   authDialog.value = true;
 };
-// const openAuthDialog() {
-//   authDialog.value = true;
-// }
+//로그아웃
+const handleLogout = async () => {
+  await logout();
+};
 </script>
