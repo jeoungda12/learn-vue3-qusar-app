@@ -33,10 +33,14 @@
         <FindPasswordForm v-else @change-view="changeViewMode" />
       -->
 
-        <!-- 동적 컴포넌트 사용 -->
+        <!--
+          동적 컴포넌트 사용
+          자식 컴포넌트에서 emit한 event를 @를 통해 받아 실행한다.
+        -->
         <component
           :is="authViewCompoments[viewMode]"
           @change-view="changeViewMode"
+          @close-dialog="closeDialog"
         />
       </q-card-section>
     </q-card>
@@ -56,7 +60,9 @@ defineProps({
     default: false,
   },
 });
-defineEmits(['update:modeValue']);
+
+//Dialog On/Off 상태
+const emit = defineEmits(['update:modelValue']);
 
 // 로그인 팝법 상태 관리
 const viewMode = ref('SignInForm'); //SigninForm, SignUpForm, FindPasswordForm
@@ -78,5 +84,9 @@ const authViewCompoments = {
   FindPasswordForm: defineAsyncComponent(() =>
     import('./FindPasswordForm.vue'),
   ),
+};
+
+const closeDialog = () => {
+  emit('update:modelValue', false);
 };
 </script>

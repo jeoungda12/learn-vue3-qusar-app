@@ -58,12 +58,27 @@
         <!-- 마이 페이지 -->
         <q-btn v-if="authStore.isAuthenticated" round flat>
           <q-avatar>
-            <img :src="authStore.user.photoURL" />
+            <img
+              :src="
+                authStore.user.photoURL ||
+                generateDefaultPhotoURL(authStore.user.uid)
+              "
+            />
           </q-avatar>
           <q-menu>
-            <q-list style="min-width: 100px">
-              <q-item clickable v-close-popup to="/mypage/profile">
+            <q-list style="min-width: 140px">
+              <q-item
+                v-if="authStore.user.emailVerified"
+                clickable
+                v-close-popup
+                to="/mypage/profile"
+              >
                 <q-item-section>프로필</q-item-section>
+              </q-item>
+              <q-item v-else clickable v-close-popup>
+                <q-item-section class="text-red" @click="varifyEmail"
+                  >이메일을 인증해주세요.</q-item-section
+                >
               </q-item>
               <q-item clickable v-close-popup @click="handleLogout">
                 <q-item-section>로그아웃</q-item-section>
@@ -88,13 +103,19 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useQuasar } from 'quasar';
 //로그인 상태 Pinia
 import { useAuthStore } from 'src/stores/auth';
 //로그아웃
-import { logout } from 'src/services/auth';
+import {
+  logout,
+  generateDefaultPhotoURL,
+  sendVerificationEmail,
+} from 'src/services';
 
 import AuthDialog from 'src/components/auth/AuthDialog.vue';
 
+const $q = useQuasar();
 const authStore = useAuthStore();
 
 const route = useRoute();
@@ -112,5 +133,11 @@ const openAuthDialog = () => {
 //로그아웃
 const handleLogout = async () => {
   await logout();
+  $q.notify('로그아웃 되었습니다!');
+};
+
+const varifyEmail = async () => {
+  await sendVerificationEmail();
+  $q.notify('이메일을 확인해주세요!');
 };
 </script>
