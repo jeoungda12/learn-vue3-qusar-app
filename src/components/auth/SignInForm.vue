@@ -12,7 +12,7 @@
         outlined
         dense
       />
-      {{ error }}
+      <DisplayError :code="error?.code" />
       <div>
         <q-btn
           type="submit"
@@ -59,6 +59,9 @@
 import { signInWithGoogle, signInWithEmail } from 'src/services';
 import { ref } from 'vue';
 import { useQuasar } from 'quasar';
+import { getErrorMessage } from 'src/utils/firebase/error-message';
+
+import DisplayError from '../DisplayError.vue';
 
 //이벤트
 const emit = defineEmits(['changeView', 'closeDialog']);
@@ -81,6 +84,10 @@ const handleSignInEmail = async () => {
     emit('closeDialog');
   } catch (err) {
     error.value = err;
+    $q.notify({
+      type: 'negative',
+      message: getErrorMessage(err.code),
+    });
   } finally {
     isLoading.value = false;
   }
