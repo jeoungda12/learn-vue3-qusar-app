@@ -8,6 +8,7 @@ import {
   sendPasswordResetEmail,
   updatePassword,
   sendEmailVerification,
+  updateEmail,
 } from 'firebase/auth';
 import { uid } from 'quasar';
 import { auth } from 'src/boot/firebase';
@@ -61,4 +62,16 @@ export async function updateUserPassword(newPassword) {
 
 export async function sendVerificationEmail() {
   await sendEmailVerification(auth.currentUser);
+}
+
+//사용자 프로필 업데이트
+export async function updateUserProfile(displayName) {
+  await updateProfile(auth.currentUser, {
+    displayName,
+  });
+}
+
+//사용자 이메일 주소 설정
+export async function updateUserEmail(email) {
+  await updateEmail(auth.currentUser, email);
 }

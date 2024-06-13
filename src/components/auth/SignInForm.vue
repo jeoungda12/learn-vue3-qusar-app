@@ -12,6 +12,7 @@
         outlined
         dense
       />
+      {{ error }}
       <div>
         <q-btn
           type="submit"
@@ -19,6 +20,7 @@
           unelevated
           color="primary"
           class="full-width"
+          :loading="isLoading"
         />
         <div class="flex justify-between">
           <q-btn
@@ -62,6 +64,9 @@ import { useQuasar } from 'quasar';
 const emit = defineEmits(['changeView', 'closeDialog']);
 
 const $q = useQuasar();
+
+const isLoading = ref(false);
+const error = ref(null);
 // 이메일 로그인
 const form = ref({
   email: '',
@@ -69,9 +74,16 @@ const form = ref({
 });
 
 const handleSignInEmail = async () => {
-  await signInWithEmail(form.value.email, form.value.password);
-  $q.notify('환영합니다 :)');
-  emit('closeDialog');
+  try {
+    isLoading.value = true;
+    await signInWithEmail(form.value.email, form.value.password);
+    $q.notify('환영합니다 :)');
+    emit('closeDialog');
+  } catch (err) {
+    error.value = err;
+  } finally {
+    isLoading.value = false;
+  }
 };
 
 // 로그인(구글)
